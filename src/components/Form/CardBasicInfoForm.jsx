@@ -12,7 +12,7 @@ import {
 } from './validation';
 import { DEFAULT_CARD_INFO, MAX_LENGTH } from '../../constants';
 import { CardContext, PageContext } from '../../context';
-import useInputs from '../../hooks';
+import useInputs from '../../hooks/useInputs';
 
 function CardBasicInfoForm() {
   const { cardList, setCardInput } = useContext(CardContext);

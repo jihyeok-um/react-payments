@@ -6,7 +6,7 @@ import { CardContext, PageContext } from '../../context';
 import { isBlankValue, isOverlappedValue } from '../../utils/validations';
 import SubmitButton from '../Common/Button/SubmitButton';
 import { isKoreanInRange } from './validation';
-import useInputs from '../../hooks';
+import useInputs from '../../hooks/useInputs';
 import { DEFAULT_CARD_INFO, MAX_LENGTH } from '../../constants';
 
 function CardNickNameForm() {
