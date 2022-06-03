@@ -6,8 +6,8 @@ import {
   isNotNumber,
 } from '../../utils/validations';
 
-export const checkFormCompletion = ({ form }) => {
-  const { cardNumber, expirationDate, securityCode, password } = form;
+export const checkFormCompletion = ({ cardForm }) => {
+  const { cardNumber, expirationDate, securityCode, password } = cardForm;
 
   if (Object.keys(cardNumber).some(key => isLengthBelow(cardNumber[key], 4))) {
     throw new Error('카드 번호를 완벽히 입력해주세요');
