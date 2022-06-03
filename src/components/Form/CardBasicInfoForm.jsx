@@ -12,26 +12,26 @@ import {
 } from './validation';
 import { DEFAULT_CARD_INFO, MAX_LENGTH } from '../../constants';
 import { CardContext, PageContext } from '../../context';
-import useInputs from '../../hooks/useInputs';
+import useCardForm from '../../hooks/useCardForm';
 
 function CardBasicInfoForm() {
   const { cardList, setCardInput } = useContext(CardContext);
   const { setPage } = useContext(PageContext);
   const [isComplete, setIsComplete] = useState(false);
   const inputElementsRef = useRef(new Map());
-  const [form, onChange, reset] = useInputs(DEFAULT_CARD_INFO);
-  const { cardNumber, expirationDate, ownerName, securityCode, password } = form;
+  const [cardForm, handleCardInputChange, reset] = useCardForm(DEFAULT_CARD_INFO);
+  const { cardNumber, expirationDate, ownerName, securityCode, password } = cardForm;
 
   const handleChangeInputs = (e, validationFunc, dataType, key) => {
     const {
       target: { value: changedData, maxLength },
     } = e;
-    onChange(e, validationFunc, dataType, key);
+    handleCardInputChange(e, validationFunc, dataType, key);
 
     if (changedData.length === maxLength) {
       focusNextInput(e.target);
     }
-    setCardInput({ ...form });
+    setCardInput({ ...cardForm });
   };
 
   const nodePushRef = (id, node) => {
@@ -62,7 +62,7 @@ function CardBasicInfoForm() {
 
   useEffect(() => {
     try {
-      if (checkFormCompletion({ form })) {
+      if (checkFormCompletion({ cardForm })) {
         setIsComplete(true);
       }
     } catch (e) {

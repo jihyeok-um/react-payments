@@ -6,32 +6,33 @@ import { CardContext, PageContext } from '../../context';
 import { isBlankValue, isOverlappedValue } from '../../utils/validations';
 import SubmitButton from '../Common/Button/SubmitButton';
 import { isKoreanInRange } from './validation';
-import useInputs from '../../hooks/useInputs';
 import { DEFAULT_CARD_INFO, MAX_LENGTH } from '../../constants';
+import useCardForm from '../../hooks/useCardForm';
 
 function CardNickNameForm() {
   const { cardList, cardInput, setCardList, setCardInput } = useContext(CardContext);
   const { setPage } = useContext(PageContext);
-  const [form, onChange, reset] = useInputs(cardInput);
+  const [cardForm, handleCardInputChange, reset] = useCardForm(cardInput);
+  const { cardNickName } = cardForm;
 
   const onChangeCardName = (e, validationFunc, dataType) => {
-    onChange(e, validationFunc, dataType);
-    setCardInput({ ...cardInput, cardNickName: form.cardNickName });
+    handleCardInputChange(e, validationFunc, dataType);
+    setCardInput({ ...cardInput, cardNickName: cardForm.cardNickName });
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (isOverlappedValue(form.cardNickName, cardList)) {
+    if (isOverlappedValue(cardNickName, cardList)) {
       alert('동일한 명칭의 카드가 존재합니다.');
       return;
     }
 
-    if (isBlankValue(form.cardNickName)) {
+    if (isBlankValue(cardNickName)) {
       alert('카드 이름이 공백입니다.');
       return;
     }
 
-    setCardList({ ...cardList, [form.cardNickName]: { ...cardInput } });
+    setCardList({ ...cardList, [cardNickName]: { ...cardInput } });
     setPage('cardListPage');
     setCardInput(DEFAULT_CARD_INFO);
     reset(DEFAULT_CARD_INFO);
@@ -42,7 +43,7 @@ function CardNickNameForm() {
       <LineInput>
         <input
           className="input-underline"
-          value={form.cardNickName}
+          value={cardNickName}
           onChange={e => onChangeCardName(e, isKoreanInRange, 'cardNickName')}
           maxLength={MAX_LENGTH.CARD_NICK_NAME}
           required
