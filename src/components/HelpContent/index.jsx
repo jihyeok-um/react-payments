@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function HelpContent({ helpText }) {
+function DescriptionComment({ helpText }) {
   if (!helpText) {
     return;
   }
@@ -26,8 +26,8 @@ function HelpContent({ helpText }) {
   );
 }
 
-export default HelpContent;
+export default DescriptionComment;
 
-HelpContent.propTypes = {
+DescriptionComment.propTypes = {
   helpText: PropTypes.string,
 };
